@@ -1,0 +1,27 @@
+#success_alert , #error_alert{
+    position: fixed;
+    z-index: 11000;
+    top: 90px;
+    right: 20px;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="url"], 
+input[type="password"], 
+input[type="search"], 
+textarea, .input-text, select {
+    padding: 9px;
+    background-color: #fff;
+    color: #233729;
+    outline: none;
+    border: 0;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-weight: normal;
+    font-size: 1em;
+    border: 1px solid #C1C1C1;
+}
+
+
