@@ -1212,7 +1212,7 @@ class Reports_new extends MY_Controller {
             $si .= " GROUP BY {$this->db->dbprefix('purchase_items')}.purchase_id ) FSI";
 
 
-        $this->db->select("DATE_FORMAT({$this->db->dbprefix('purchases')}.date, '%Y-%m-%d %T') as date, reference_no, {$this->db->dbprefix('warehouses')}.name as wname, supplier,IF(comp.gstn_no IS NULL or comp.gstn_no = '', '-', comp.gstn_no) as gstn_no,
+        $this->db->select("DATE_FORMAT({$this->db->dbprefix('purchases')}.date, '%Y-%m-%d %T') as date, reference_no, {$this->db->dbprefix('warehouses')}.name as wname, CONCAT(comp.company, '(', {$this->db->dbprefix('purchases')}.supplier, ')') as supplier, IF(comp.gstn_no IS NULL or comp.gstn_no = '', '-', comp.gstn_no) as gstn_no,
              FSI.hsn_code,FSI.item_name, 
             grand_total, (grand_total - total_tax ) as tax_able_amount,
             (SELECT (GROUP_CONCAT(DISTINCT CONCAT(' ' , format(tax,2),'%'))) as tax_rate  FROM `sma_purchase_items` WHERE `sma_purchase_items`.`purchase_id` = `sma_purchases`.`id` ) as tax_rate,
@@ -1516,7 +1516,8 @@ class Reports_new extends MY_Controller {
             $si .= "LEFT JOIN {$this->db->dbprefix('product_variants')} ON {$this->db->dbprefix('purchase_items')}.option_id = {$this->db->dbprefix('product_variants')}.id";
 
             $si .= " GROUP BY {$this->db->dbprefix('purchase_items')}.purchase_id ) FSI";
-$this->datatables->select("DATE_FORMAT({$this->db->dbprefix('purchases')}.date, '%Y-%m-%d %T') as date, reference_no, {$this->db->dbprefix('warehouses')}.name as wname, supplier,IF(comp.gstn_no IS NULL or comp.gstn_no = '', '-', comp.gstn_no) as gstn_no,
+
+           $this->datatables->select("DATE_FORMAT({$this->db->dbprefix('purchases')}.date, '%Y-%m-%d %T') as date, reference_no, {$this->db->dbprefix('warehouses')}.name as wname, CONCAT(comp.company, '(', {$this->db->dbprefix('purchases')}.supplier, ')') as supplier,IF(comp.gstn_no IS NULL or comp.gstn_no = '', '-', comp.gstn_no) as gstn_no,
              FSI.hsn_code,FSI.item_name, 
             grand_total, (grand_total - total_tax ) as tax_able_amount,
             (SELECT (GROUP_CONCAT(DISTINCT CONCAT(' ' , format(tax,2),'%'))) as tax_rate  FROM `sma_purchase_items` WHERE `sma_purchase_items`.`purchase_id` = `sma_purchases`.`id` ) as tax_rate,

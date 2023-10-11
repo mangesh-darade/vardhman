@@ -3002,8 +3002,11 @@ $this->excel->getActiveSheet()->SetCellValue('K' . $row,$discount);
             $this->load->library('datatables');
             //$this->datatables->select("DATE_FORMAT({$this->db->dbprefix('purchases')}.date, '%Y-%m-%d %T') as date, reference_no, {$this->db->dbprefix('warehouses')}.name as wname, supplier, (FPI.item_nane) as iname, (grand_total+rounding) as grand_total, paid, (grand_total+rounding-paid) as balance, {$this->db->dbprefix('purchases')}.status, {$this->db->dbprefix('purchases')}.id as id", FALSE)->from('purchases')->join($pi, 'FPI.purchase_id=purchases.id', 'left')->join('warehouses', 'warehouses.id=purchases.warehouse_id', 'left');
             // ->group_by('purchases.id');
-            $this->datatables->select("DATE_FORMAT({$this->db->dbprefix('purchases')}.date, '%Y-%m-%d %T') as date, reference_no, {$this->db->dbprefix('warehouses')}.name as wname, supplier, (FPI.item_nane) as iname, (grand_total+rounding) as grand_total, paid, (grand_total+rounding-paid) as balance, {$this->db->dbprefix('purchases')}.status, {$this->db->dbprefix('purchases')}.id as id", FALSE)->from('purchases')->join($pi, 'FPI.purchase_id=purchases.id', 'left')->join('warehouses', 'warehouses.id=purchases.warehouse_id', 'left');
-
+            $this->datatables->select("DATE_FORMAT({$this->db->dbprefix('purchases')}.date, '%Y-%m-%d %T') as date, reference_no, {$this->db->dbprefix('warehouses')}.name as wname, CONCAT(" . $this->db->dbprefix('companies') . ".company, '(', {$this->db->dbprefix('purchases')}.supplier, ')') as supplier, (FPI.item_nane) as iname, (grand_total+rounding) as grand_total, paid, (grand_total+rounding-paid) as balance, {$this->db->dbprefix('purchases')}.status, {$this->db->dbprefix('purchases')}.id as id", FALSE)
+            ->from('purchases')
+            ->join($pi, 'FPI.purchase_id=purchases.id', 'left')
+            ->join('warehouses', 'warehouses.id=purchases.warehouse_id', 'left')
+            ->join('companies', 'companies.id=purchases.supplier_id', 'left');
 
             if ($this->Owner || $this->Admin) {
                 if ($user) {
