@@ -853,10 +853,9 @@ function calculateCost(){
             }            
         }
     }
-    
+   
     var item_tax = pr_tax_val * pquantity;
-    
-    net_cost = tax_method == 0 ? formatDecimal(unit_cost - item_tax, 4) : formatDecimal(unit_cost);     
+    net_cost = tax_method == 0 ? formatDecimal(unit_cost - pr_tax_val, 4) : formatDecimal(unit_cost);     
     
     $('#net_cost').html(formatMoney(net_cost));
     $('#pro_tax').html(formatMoney(item_tax));
